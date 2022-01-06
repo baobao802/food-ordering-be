@@ -1,4 +1,4 @@
 node_modules
 .env
 
-resources/static/assets/uploads/*
+!resources/static/assets/uploads/.gitkeep
