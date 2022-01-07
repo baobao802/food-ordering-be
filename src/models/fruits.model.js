@@ -1,7 +1,16 @@
 import mongoose from 'mongoose';
-import ReviewModel from './review.model.js';
 
-const ReviewSchema = mongoose.model('reviews').schema;
+const ReviewSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    comment: { type: String, required: true },
+    rating: { type: Number, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const FruitSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },

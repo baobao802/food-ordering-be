@@ -82,6 +82,7 @@ UserController.deleteUser = async (req, res) => {
 
 UserController.updateUser = async (req, res) => {
   const user = await UserModel.findById(req.params.id);
+  console.log(req.body.isSeller);
   if (user) {
     user.name = req.body.name;
     user.email = req.body.email;
@@ -99,12 +100,7 @@ UserController.updateProfileUser = async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    if (user.isSeller) {
-      user.seller.name = req.body.sellerName || user.seller.name;
-      user.seller.logo = req.body.sellerLogo || user.seller.logo;
-      user.seller.description =
-        req.body.sellerDescription || user.seller.description;
-    }
+    
     if (req.body.password) {
       user.password = bcrypt.hashSync(req.body.password, 8);
     }

@@ -7,13 +7,13 @@ const data = {
       email: 'nhat@gmail.com',
       password: bcrypt.hashSync('1234', 8),
       isAdmin: true,
-      isSeller: true,
+      isSeller: false,
     },
     {
       name: 'Hiền',
       email: 'hien@gmail.com',
       password: bcrypt.hashSync('1234', 8),
-      isSeller: true,
+      isSeller: false,
       isAdmin: false,
     },
     {
@@ -33,7 +33,7 @@ const data = {
       price: 120,
       countInStock: 10,
       brand: 'AppleInc',
-      rating: 4.5,
+      rating: 5,
       numReviews: 10,
       description: 'high quality product',
     },
@@ -45,7 +45,7 @@ const data = {
       price: 150,
       countInStock: 10,
       brand: 'AppleInc',
-      rating: 4.5,
+      rating: 4,
       numReviews: 10,
       description: 'high quality product',
     },
@@ -57,7 +57,7 @@ const data = {
       price: 80,
       countInStock: 10,
       brand: 'AppleInc',
-      rating: 4.5,
+      rating: 3,
       numReviews: 10,
       description: 'high quality product',
     },
@@ -69,7 +69,7 @@ const data = {
       price: 60,
       countInStock: 10,
       brand: 'AppleInc',
-      rating: 4.5,
+      rating: 2,
       numReviews: 10,
       description: 'high quality product',
     },
@@ -81,7 +81,7 @@ const data = {
       price: 180,
       countInStock: 10,
       brand: 'AppleInc',
-      rating: 4.5,
+      rating: 1,
       numReviews: 10,
       description: 'high quality product',
     },
@@ -96,7 +96,32 @@ const data = {
       rating: 4.5,
       numReviews: 10,
       description: 'high quality product',
+      reviews : [
+        {
+          name: "Hiền",
+          comment: "Trái cây cực ngon",
+          rating: 2,
+        },
+        {
+          name: "Hiền",
+          comment: "Goodddddd",
+          rating: 5,
+        }
+      ]
     },
   ],
+
+  reviews : [
+    {
+      name: "Hiền",
+      comment: "Trái cây cực ngon",
+      rating: 2,
+    },
+    {
+      name: "Hiền",
+      comment: "Goodddddd",
+      rating: 5,
+    }
+  ]
 };
 export default data;

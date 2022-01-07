@@ -1,9 +1,9 @@
 import express from 'express';
 import UserController from '../controllers/user.controller.js';
-import { isAuth, isSellerOrAdmin, isAdmin } from '../middleware/auth.middleware.js'
+import { isAuth, isAdmin } from '../middleware/auth.middleware.js'
 const router = express.Router();
 
-// chua lay duoc top
+// can remove project
 router.get('/top-sellers', UserController.getTopSeller);
 
 router.post('/signin', UserController.signin);
@@ -12,7 +12,7 @@ router.post('/register', UserController.register);
 
 router.get('/:id', UserController.getUserById);
 
-// chua test
+// chua xong
 router.put('/profile', isAuth, UserController.updateProfileUser);
 
 router.get('/', isAuth, isAdmin, UserController.getAllUser);

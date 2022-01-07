@@ -13,7 +13,7 @@ const FruitController = {};
 //     }
 // };
 FruitController.getFruits = async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 3;
   const page = Number(req.query.pageNumber) || 1;
   const name = req.query.name || '';
   const category = req.query.category || '';
@@ -50,8 +50,7 @@ FruitController.getFruits = async (req, res) => {
     ...categoryFilter,
     ...priceFilter,
     ...ratingFilter,
-  })
-    .sort(sortOrder)
+  }).sort(sortOrder)
     .skip(pageSize * (page - 1))
     .limit(pageSize);
   res.send({ fruits, page, pages: Math.ceil(count / pageSize) });
@@ -72,21 +71,25 @@ FruitController.getFruitById = async (req, res) => {
 };
 
 FruitController.insertFruit = async (req, res) => {
-  const fruit = {
-    name: req.body.name,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/512px-Red_Apple.jpg',
-    price: req.body.price,
-    category: req.body.category,
-    brand: req.body.brand,
-    countInStock: req.body.countInStock,
-    rating: 0,
-    numReviews: 0,
-    description: req.body.description,
-    review: '',
-  };
-  const createdFruit = await FruitsService.create(fruit);
-  res.send({ message: 'Fruit Created', fruit: createdFruit });
+  const found = await FruitModel.findOne({name: req.body.name});
+  if (!found) {
+    const fruit = {
+      name: req.body.name,
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/512px-Red_Apple.jpg',
+      price: req.body.price,
+      category: req.body.category,
+      brand: req.body.brand,
+      countInStock: req.body.countInStock,
+      description: req.body.description,
+      rating: 0,
+      numReviews: 0,
+    };
+    const createdFruit = await FruitsService.create(fruit);
+    res.send({ message: 'Fruit Created', fruit: createdFruit });
+  } else {
+    res.send({ message: 'Fruit Existed' });
+  }
 };
 
 FruitController.updateFruit = async (req, res) => {
