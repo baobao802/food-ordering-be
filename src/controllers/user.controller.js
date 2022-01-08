@@ -69,7 +69,7 @@ UserController.getAllUser = async (req, res) => {
 UserController.deleteUser = async (req, res) => {
   const user = await UserModel.findById(req.params.id);
   if (user) {
-    if (user.email === 'admin@example.com') {
+    if (user.email === 'admin@gmail.com') {
       res.status(400).send({ message: 'Can Not Delete Admin User' });
       return;
     }
@@ -82,10 +82,15 @@ UserController.deleteUser = async (req, res) => {
 
 UserController.updateUser = async (req, res) => {
   const user = await UserModel.findById(req.params.id);
-  console.log(req.body.isSeller);
   if (user) {
+    if (user.email === 'admin@gmail.com') {
+      res.status(400).send({ message: 'Can Not Update Admin User' });
+      return;
+    }
     user.name = req.body.name;
     user.email = req.body.email;
+    user.address = req.body.address;
+    user.phone = req.body.phone;
     user.isSeller = req.body.isSeller === 'true';
     user.isAdmin = req.body.isAdmin === 'true';
     const updatedUser = await user.save();
@@ -100,6 +105,9 @@ UserController.updateProfileUser = async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.address = req.body.address || user.address;
+    user.phone = req.body.phone || user.phone;
+
     
     if (req.body.password) {
       user.password = bcrypt.hashSync(req.body.password, 8);
@@ -109,6 +117,8 @@ UserController.updateProfileUser = async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      address: updatedUser.address,
+      phone: updatedUser.phone,
       isAdmin: updatedUser.isAdmin,
       isSeller: user.isSeller,
       token: generateToken(updatedUser),

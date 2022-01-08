@@ -12,7 +12,6 @@ router.post('/register', UserController.register);
 
 router.get('/:id', UserController.getUserById);
 
-// chua xong
 router.put('/profile', isAuth, UserController.updateProfileUser);
 
 router.get('/', isAuth, isAdmin, UserController.getAllUser);

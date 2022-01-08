@@ -13,7 +13,6 @@ router.get('/', FruitController.getFruits);
 
 router.get('/categories', FruitController.getAllCategory);
 
-// miss populate
 router.get('/:id', FruitController.getFruitById);
 
 router.post('/', isAuth, isAdmin, uploadImage, FruitController.insertFruit);
