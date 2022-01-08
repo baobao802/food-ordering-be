@@ -103,7 +103,7 @@ const data = {
           rating: 2,
         },
         {
-          name: "Hiền",
+          name: "Huong",
           comment: "Goodddddd",
           rating: 5,
         }
@@ -118,7 +118,7 @@ const data = {
       rating: 2,
     },
     {
-      name: "Hiền",
+      name: "Huong",
       comment: "Goodddddd",
       rating: 5,
     }

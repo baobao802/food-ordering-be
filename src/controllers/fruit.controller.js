@@ -2,16 +2,6 @@ import FruitsService from '../services/fruit.service.js';
 import FruitModel from '../models/fruits.model.js';
 const FruitController = {};
 
-// FruitController.getFruits = async (req, res) => {
-//     try {
-//         const fruits = await FruitsService.getAllFruits();
-//         res.status(200).json({
-//             fruits
-//         });
-//     } catch (error) {
-//         res.status(400);
-//     }
-// };
 FruitController.getFruits = async (req, res) => {
   const pageSize = 3;
   const page = Number(req.query.pageNumber) || 1;
@@ -75,8 +65,7 @@ FruitController.insertFruit = async (req, res) => {
   if (!found) {
     const fruit = {
       name: req.body.name,
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/512px-Red_Apple.jpg',
+      image: req.body.image,
       price: req.body.price,
       category: req.body.category,
       brand: req.body.brand,

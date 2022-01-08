@@ -1,23 +1,23 @@
-import util from 'util';
-import multer from 'multer';
+import uploadFile from '../middleware/configUpload.js';
+import fs from 'fs';
 
 
-const maxSize = 2 * 1024 * 1024;
+const upload = async (req, res, next) => {
+  
+  try {
+    await uploadFile(req, res);
+    if (req.file == undefined) {
+      return res.status(400).send({ message: 'Please upload a file!' });
+    } else {
+      const url = `${req.protocol}://${req.get('host')}${req.baseUrl}/${req.file.filename}`;
+      req.body.image = url;
+      next();
+    }
+  } catch (err) {
+    res.status(500).send({
+      message: `Could not upload the file: ${req.file.originalname}.${err}`,
+    });
+  }
+};
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, __basedir + '/resources/static/assets/uploads/');
-  },
-  filename: (req, file, cb) => {
-    const fileExtension = (file.originalname.match(/\.+[\S]+$/) || [])[0];
-    const filename = `${Date.now()}${fileExtension}`;
-    cb(null, filename);
-  },
-});
-
-const uploadFile = multer({
-  storage,
-  limits: { fileSize: maxSize },
-}).single('file');
-
-export default util.promisify(uploadFile);
+export default upload;
