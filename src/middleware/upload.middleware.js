@@ -19,7 +19,8 @@ const upload = async (req, res, next) => {
       return res.status(400).send({ message: 'Please upload a file!' });
     } else {
       cloudinary.v2.uploader.upload(`./resources/static/assets/uploads/${req.file.filename}`, {
-        resource_type: "image"
+        resource_type: "image",
+        folder: "fruits"
       }).then((result) => {
         fs.unlinkSync(`./resources/static/assets/uploads/${req.file.filename}`);
         const url = result.url;
