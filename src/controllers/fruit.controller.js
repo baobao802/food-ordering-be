@@ -32,9 +32,9 @@ FruitController.getFruits = async (req, res) => {
   const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
   const ratingFilter = rating ? { rating: { $gte: rating } } : {};
   const sortOrder =
-    order === 'lowest'
-      ? { price: 1 }
-      : order === 'highest'
+  order === 'lowest'
+  ? { price: 1 }
+  : order === 'highest'
       ? { price: -1 }
       : order === 'toprated'
       ? { rating: -1 }

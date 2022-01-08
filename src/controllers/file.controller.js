@@ -2,13 +2,12 @@ import uploadFile from '../middleware/upload.middleware';
 import fs from 'fs';
 
 const upload = async (req, res) => {
+  
   try {
     await uploadFile(req, res);
-
     if (req.file == undefined) {
       return res.status(400).send({ message: 'Please upload a file!' });
     }
-
     res.status(200).send({
       url: `${req.protocol}://${req.get('host')}${req.baseUrl}/${
         req.file.filename
@@ -16,7 +15,7 @@ const upload = async (req, res) => {
     });
   } catch (err) {
     res.status(500).send({
-      message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+      message: `Could not upload the file: ${req.file.originalname}.${err}`,
     });
   }
 };

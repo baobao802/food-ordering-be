@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import router from './src/routers/router';
 import dbConnection from './src/configs/db.config';
+import bodyParser from 'body-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,7 +27,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', router);
 

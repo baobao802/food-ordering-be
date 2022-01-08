@@ -1,6 +1,7 @@
 import express from 'express';
 import FruitController from '../controllers/fruit.controller.js';
 import FruitModel from '../models/fruits.model.js';
+import FileController from '../controllers/file.controller.js';
 import {
   isAuth,
   isSellerOrAdmin,
@@ -15,9 +16,9 @@ router.get('/categories', FruitController.getAllCategory);
 // miss populate
 router.get('/:id', FruitController.getFruitById);
 
-router.post('/', isAuth, isAdmin, FruitController.insertFruit);
+router.post('/', isAuth, isAdmin, FileController.upload, FruitController.insertFruit);
 
-router.put('/:id', isAuth, isAdmin, FruitController.updateFruit);
+router.put('/:id', isAuth, isAdmin,  FruitController.updateFruit);
 
 router.delete('/:id', isAuth, isAdmin, FruitController.deleteFruit);
 
