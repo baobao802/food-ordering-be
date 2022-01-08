@@ -67,7 +67,6 @@ router.get('/mine', isAuth, async (req, res) => {
 });
 
 router.post('/', isAuth, async (req, res) => {
-    console.log(req.body.orderItems.length);
     if (req.body.orderItems.length === 0) {
         res.status(400).send({ message: 'Cart is empty' });
     } else {
@@ -86,7 +85,6 @@ router.post('/', isAuth, async (req, res) => {
 });
 
 router.get('/:id', isAuth, async (req, res) => {
-    console.log(req.params.id);
     const order = await OrderModel.findById(req.params.id);
     if (order) {
         res.send(order);
