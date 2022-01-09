@@ -14,12 +14,9 @@ cloudinary.v2.config({
 const upload = async (req, res, next) => {
   
   try {
-    if (typeof(req.file) === 'string') {
-      next();
-    }
     await uploadFile(req, res);
     if (req.file == undefined) {
-      return res.status(400).send({ message: 'Please upload a file!' });
+      next();
     } else {
       cloudinary.v2.uploader.upload(`./resources/static/assets/uploads/${req.file.filename}`, {
         resource_type: "image",
