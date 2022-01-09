@@ -91,6 +91,7 @@ UserController.updateUser = async (req, res) => {
     user.email = req.body.email;
     user.address = req.body.address;
     user.phone = req.body.phone;
+    user.image = req.body.image;
     user.isSeller = req.body.isSeller === 'true';
     user.isAdmin = req.body.isAdmin === 'true';
     const updatedUser = await user.save();
@@ -107,8 +108,8 @@ UserController.updateProfileUser = async (req, res) => {
     user.email = req.body.email || user.email;
     user.address = req.body.address || user.address;
     user.phone = req.body.phone || user.phone;
+    user.image = req.body.image || user.image;
 
-    
     if (req.body.password) {
       user.password = bcrypt.hashSync(req.body.password, 8);
     }
@@ -118,6 +119,7 @@ UserController.updateProfileUser = async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       address: updatedUser.address,
+      image: updatedUser.image,
       phone: updatedUser.phone,
       isAdmin: updatedUser.isAdmin,
       isSeller: user.isSeller,
