@@ -7,7 +7,7 @@ export const isAuth = (req, res, next) => {
       // kho hieu vai noi
       const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
       jwt.verify(
-        authorization,
+        token,
         process.env.JWT_SECRET || 'bkhunter',
         (err, decode) => {
           if (err) {
