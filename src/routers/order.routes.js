@@ -10,16 +10,10 @@ import {
 
 const router = express.Router();
 
-// router.get('/', isAuth, isSellerOrAdmin, async (req, res) => {
-//     const seller = req.query.seller || '';
-//     const sellerFilter = seller ? { seller } : {};
-
-//     const orders = await OrderModel.find({ ...sellerFilter }).populate(
-//         'user',
-//         'name'
-//     );
-//     res.send(orders);
-// });
+router.get('/', isAuth, isSellerOrAdmin, async (req, res) => {
+    const orders = await OrderModel.find({});
+    res.send(orders);
+});
 
 router.get('/summary', isAuth, isAdmin, async (req, res) => {
     const orders = await OrderModel.aggregate([
@@ -80,6 +74,13 @@ router.post('/', isAuth, async (req, res) => {
             user: req.user._id,
         });
         const createdOrder = await order.save();
+        const orderItems = req.body.orderItems;
+        orderItems.forEach(async orderItem => {
+            const fruit = await FruitModel.findById(orderItem.fruit);
+            const countInStock = Number(fruit.countInStock);
+            const newCountInStock = countInStock - orderItem.qty;
+            await FruitModel.updateOne({_id: fruit._id}, {countInStock: newCountInStock});
+        });
         res.status(201).send({ message: 'New Order Created', order: createdOrder });
     }
 });
@@ -93,57 +94,33 @@ router.get('/:id', isAuth, async (req, res) => {
     }
 });
 
-// orderRouter.put('/:id/pay', isAuth, async (req, res) => {
-//     const order = await OrderModel.findById(req.params.id).populate(
-//         'user',
-//         'email name'
-//     );
-//     if (order) {
-//         order.isPaid = true;
-//         order.paidAt = Date.now();
-//         order.paymentResult = {
-//             id: req.body.id,
-//             status: req.body.status,
-//             update_time: req.body.update_time,
-//             email_address: req.body.email_address,
-//         };
-//         const updatedOrder = await order.save();
-//         try {
-//             mailgun()
-//                 .messages()
-//                 .send(
-//                     {
-//                         from: 'Amazona <amazona@mg.yourdomain.com>',
-//                         to: `${order.user.name} <${order.user.email}>`,
-//                         subject: `New order ${order._id}`,
-//                         html: payOrderEmailTemplate(order),
-//                     },
-//                     (error, body) => {
-//                         if (error) {
-//                             console.log(error);
-//                         } else {
-//                             console.log(body);
-//                         }
-//                     }
-//                 );
-//         } catch (err) {
-//             console.log(err);
-//         }
-
-//         res.send({ message: 'Order Paid', order: updatedOrder });
-//     } else {
-//         res.status(404).send({ message: 'Order Not Found' });
-//     }
-// });
+router.put('/:id/pay', isAuth, async (req, res) => {
+    const order = await OrderModel.findById(req.params.id);
+    if (order) {
+        if(order.isDelivered === true) {
+            order.isPaid = true;
+            order.paidAt = Date.now();
+            const updatedOrder = await order.save();
+            res.send({ message: 'Order Paid', order: updatedOrder });
+        } else {
+            res.send({message: 'You must deliver fruit'});
+        }
+    } else {
+        res.status(404).send({ message: 'Order Not Found' });
+    }
+});
 
 router.put('/:id/cancel', isAuth, isSellerOrAdmin, async (req, res) => {
     const order = await OrderModel.findById(req.params.id);
     if (order) {
-        order.isCanceled = true;
-        order.canceledAt = Date.now();
-
-        const updatedOrder = await order.save();
-        res.send({ message: 'Order Canceled', order: updatedOrder });
+        if (!order.isPaid) {
+            order.canceledAt = Date.now();
+            order.isCanceled = true;
+            const updatedOrder = await order.save();
+            res.send({ message: 'Order Canceled', order: updatedOrder });
+        } else {
+            res.status(404).send({ message: 'Cannot cancel because order already paid' });
+        }
     } else {
         res.status(404).send({ message: 'Order Not Found' });
     }
