@@ -275,6 +275,86 @@ const data = {
     },
     {
       name: "Huong",
+      comment: "Trái cây tươi ngon",
+      rating: 5,
+    },
+    {
+      name: "Thinh",
+      comment: "Giao hàng khá chậm",
+      rating: 1,
+    },
+    {
+      name: "Bao",
+      comment: "Bạn nhân viên khá nhiệt tình.",
+      rating: 5,
+    },
+    {
+      name: "Toan",
+      comment: "Goodddddd",
+      rating: 5,
+    },
+    {
+      name: "Hoàng",
+      comment: "Chất lượng khá ổn. Chưa hài lòng cách đóng gói.",
+      rating: 4,
+    },
+    {
+      name: "Tuấn",
+      comment: "Vỏ cam hơi bẩn.",
+      rating: 3,
+    },
+    {
+      name: "Trung",
+      comment: "Trái cây khá đắt",
+      rating: 2,
+    },
+    {
+      name: "Toàn",
+      comment: "Nho hơi chua nhưng vẫn đánh giá 5*",
+      rating: 5,
+    },
+    {
+      name: "Long",
+      comment: "Giao hàng khá chậm",
+      rating: 3,
+    },
+    {
+      name: "Nhân",
+      comment: "Nhân viên tư vấn nhiệt tình.",
+      rating: 5,
+    },
+    {
+      name: "Chất",
+      comment: "Chất lượng khá ổn",
+      rating: 4,
+    },
+    {
+      name: "Triển",
+      comment: "Perfect",
+      rating: 5,
+    },
+    {
+      name: "Hiền",
+      comment: "Excellent",
+      rating: 5,
+    },
+    {
+      name: "Tuấn",
+      comment: "Goodddddd",
+      rating: 5,
+    },
+    {
+      name: "Boy cô đơn",
+      comment: "Trái cây hợp khẩu vị.",
+      rating: 5,
+    },
+    {
+      name: "Girl biến thái",
+      comment: "Trái cây khá ngọt.",
+      rating: 5,
+    },
+    {
+      name: "Huong",
       comment: "Goodddddd",
       rating: 5,
     }
