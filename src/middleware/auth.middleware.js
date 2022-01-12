@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 export const isAuth = (req, res, next) => {
     const authorization = req.headers.authorization;
     if (authorization) {
-      // kho hieu vai noi
       const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
       jwt.verify(
         token,

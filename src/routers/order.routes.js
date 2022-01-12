@@ -11,8 +11,11 @@ import {
 const router = express.Router();
 
 router.get('/', isAuth, isSellerOrAdmin, async (req, res) => {
-    const orders = await OrderModel.find({});
-    res.send(orders);
+    const pageSize = 3;
+    const page = Number(req.query.pageNumber) || 1;
+    const count = await OrderModel.count();
+    const orders = await OrderModel.find({}).sort({ _id: -1 }).skip(pageSize * (page - 1)).limit(pageSize);
+    res.send({ orders, page, pages: Math.ceil(count / pageSize) });
 });
 
 router.get('/summary', isAuth, isAdmin, async (req, res) => {

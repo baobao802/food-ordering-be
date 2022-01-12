@@ -62,8 +62,11 @@ UserController.getUserById = async (req, res) => {
 };
 
 UserController.getAllUser = async (req, res) => {
-  const users = await UserModel.find({});
-  res.send(users);
+  const pageSize = 1;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await UserModel.count();
+  const users = await UserModel.find({}).sort({ _id: -1 }).skip(pageSize * (page - 1)).limit(pageSize);
+  res.send({ users, page, pages: Math.ceil(count / pageSize) });
 };
 
 UserController.deleteUser = async (req, res) => {
@@ -84,8 +87,10 @@ UserController.updateUser = async (req, res) => {
   const user = await UserModel.findById(req.params.id);
   if (user) {
     if (user.email === 'admin@gmail.com') {
-      res.status(400).send({ message: 'Can Not Update Admin User' });
-      return;
+      if (req.body.isSeller === 'true' || req.body.isAdmin === 'false') {
+        res.status(400).send({ message: 'Can Not Update Admin User' });
+        return;
+      }
     }
     user.name = req.body.name;
     user.email = req.body.email;
