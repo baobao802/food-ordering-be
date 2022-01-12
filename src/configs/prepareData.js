@@ -112,18 +112,5 @@ const data = {
       ]
     },
   ],
-
-  reviews : [
-    {
-      name: "Hiền",
-      comment: "Trái cây cực ngon",
-      rating: 2,
-    },
-    {
-      name: "Huong",
-      comment: "Goodddddd",
-      rating: 5,
-    }
-  ]
 };
 export default data;
