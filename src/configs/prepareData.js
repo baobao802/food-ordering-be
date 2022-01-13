@@ -19,6 +19,33 @@ const data = {
       isAdmin: false,
     },
     {
+      name: 'Thịnh',
+      email: 'thinh@gmail.com',
+      password: bcrypt.hashSync('1234', 8),
+      address: 'Da Nang',
+      phone: '0123477778',
+      isSeller: false,
+      isAdmin: false,
+    },
+    {
+      name: 'Quốc',
+      email: 'quoc@gmail.com',
+      password: bcrypt.hashSync('1234', 8),
+      address: 'Da Nang',
+      phone: '0123477778',
+      isSeller: false,
+      isAdmin: false,
+    },
+    {
+      name: 'Công',
+      email: 'cong@gmail.com',
+      password: bcrypt.hashSync('1234', 8),
+      address: 'Da Nang',
+      phone: '0123477778',
+      isSeller: false,
+      isAdmin: false,
+    },
+    {
       name: 'Huong',
       email: 'huong@gmail.com',
       password: bcrypt.hashSync('1234', 8),
@@ -79,6 +106,43 @@ const data = {
       `,
     },
     {
+      name: 'Táo Rockit Newzealand',
+      category: 'Táo',
+      image:
+        'https://vinfruits.com/wp-content/uploads/2017/02/t1-01-1024x1024.jpg',
+      price: 155000,
+      countInStock: 100,
+      brand: 'Mỹ',
+      description: `- Táo Rockit là dòng táo có nguồn gốc xuất xứ từ vịnh Hawke của New Zealand với hình dáng nhỏ, vỏ ngoài màu hồng đậm pha chút sắc vàng.
+      - Có tác dụng giảm cân, đẹp da, rất được nhiều chị em phụ nữ ưa chuộng`
+    },
+    {
+      name: 'Táo Vàng Kinsei Nhật Bản',
+      category: 'Táo',
+      image:
+        'https://vinfruits.com/wp-content/uploads/2019/11/tao-vang-kinsei-nhat-vinfruits-1-1024x1024.jpg',
+      price: 150000,
+      countInStock: 100,
+      brand: 'Hàn Quốc',
+      description: `- Táo Vàng Kinsei Nhật Bản với vẻ ngoài sang trọng, lớp vỏ vàng mướt. 
+      - Kinsei Nhật Bản là loại táo có mùi thơm nhất trong các loại táo. 
+      - Táo Kinsei ngọt thanh, nhiều nước, giòn và thơm lâu
+      `
+    },
+    {
+      name: 'Táo Xanh Granny Smith Mỹ',
+      category: 'Táo',
+      image:
+        'https://vinfruits.com/wp-content/uploads/2017/02/tao-xanh-my-vinfruits-6.jpg',
+      price: 150000,
+      countInStock: 100,
+      brand: 'Mỹ',
+      description: `- Táo xanh Granny Smith Nam Phi/ Mỹ  có màu xanh lá, vị chua đậm, rất giòn, nhiều nước.
+      - Ruột màu trắng, ăn rất giòn, có vị chua nhẹ.
+      - Thịt không bị chuyển màu nâu khi để ở nhiệt độ môi trường.
+      `,
+    },
+    {
       name: 'Nho Kyoho Hàn Quốc',
       category: 'Nho',
       image:
@@ -96,7 +160,7 @@ const data = {
       name: 'Nho Khô Sunview Mỹ',
       category: 'Nho',
       image:
-        'https://hstatic.net/401/1000050401/1/2015/12-16/nho_den_1_2f34bb90-5e62-4791-4c76-f47f74c3f030_large.png',
+        'https://product.hstatic.net/1000050401/product/22_dd0eba9d371248439d4b310335b18384_large.png',
       price: 145000,
       countInStock: 100,
       brand: 'Mỹ',
@@ -129,6 +193,19 @@ const data = {
       description: `- Nho đỏ không hạt Úc có quả màu đỏ tươi, vỏ mỏng, thịt dày giòn, hương vị thơm ngọt ngào và mọng nước đem đến cảm giác sảng khoái tuyệt vời mỗi khi ăn. 
       - Có thể ăn trực tiếp hoặc ép nước dùng hàng ngày đều tận hưởng được hương vị cũng như giá trị dinh dưỡng của quả.
       - Cứ 100g thịt nho đỏ không hạt Úc có chứa khoảng 68 calo, 10-12g đường dễ hấp thụ, 11mg vitamin C, cùng polyphenol, chất xơ, kali, vitamin A, vitamin B, chất chống oxy hóa… nên là thực phẩm cực lành mạnh và tốt cho sức khỏe của con người
+      `,
+    },
+    {
+      name: 'Nho Khô Úc Hộp 500g',
+      category: 'Nho',
+      image:
+        'https://product.hstatic.net/1000050401/product/3_183d051c3d2d4a628ef61095df567b4b_large.png',
+      price: 400000,
+      countInStock: 100,
+      brand: 'Úc',
+      description: `- Giống nho của Nhật từ năm 1946 và rất phổ biến ở Nhật Bản, Hàn Quốc
+      - Vỏ mỏng, trái rất mọng nước.
+      - Kích thước trái rất lớn, tương đương với nho mẫu đơn…
       `,
     },
     {
@@ -264,100 +341,59 @@ const data = {
       - Trái mềm, giòn
       - Nhập khẩu trực tiếp từ Hàn Quốc
       `,
+    },
+    {
+      name: 'Chà là khô Natural Delights',
+      category: 'Nho',
+      image:
+        'https://hstatic.net/401/1000050401/1/2015/12-16/nho_den_1_2f34bb90-5e62-4791-4c76-f47f74c3f030_large.png',
+      price: 249000,
+      countInStock: 100,
+      brand: 'Hàn Quốc',
+      description: `- Chà là Natural delights có thành phần 100% chà là tự nhiên
+      - Được thiết kế trong hộp nhựa gọn nhẹ, có thể làm quà tặng
+      - Natural Delights có vị ngọt nhẹ, không cho thêm chất làm ngọt, bùi và mùi hương dịu nhẹ
+      `,
+    },
+    {
+      name: 'Dưa lưới Đài Loan',
+      category: 'Dưa lưới',
+      image:
+        'https://vinfruits.com/wp-content/uploads/2021/12/dua-luoi-dai-loan-vinfruits-1.jpg',
+      price: 169000,
+      countInStock: 100,
+      brand: 'Mỹ',
+      description: `- Trái dưa to đều, thon dài, căng mọng, vỏ dưa màu xanh tươi mát, không quá đậm hoặc quá nhạt.
+      - Trên da quả có những đường gân đặc trưng của dòng dưa lưới bắt mắt.
+      - Ruột có màu vàng nhạt, khi chín sẽ có màu vàng đậm hơn.
+      `,
+    },
+    {
+      name: 'Kiwi vàng Organic',
+      category: 'Kiwi',
+      image:
+        'https://vinfruits.com/wp-content/uploads/2017/01/kiwi-vang-newzealand-vinfruits-3-min-2048x2048.jpg',
+      price: 345000,
+      countInStock: 100,
+      brand: 'Úc',
+      description: `- Quả Kiwi Zespri Organic được trồng và được chứng nhận theo tiêu chuẩn hữu cơ nghiêm ngặt nhất. 
+      - Kiwi vàng Zespri Organic quả to, tươi ngon, mọng nước, cầm cứng tay.
+      - Cái vị ngọt ngọt xen lẫn chua dịu nhẹ thanh mát khi thưởng thức (kiwi vàng organic chính tới).
+      `,
+    },
+    {
+      name: 'Na dai Đài Loan',
+      category: 'Na',
+      image:
+        'https://vinfruits.com/wp-content/uploads/2017/03/DSCF8343-2048x2048.jpg',
+      price: 780000,
+      countInStock: 100,
+      brand: 'Đài Loan',
+      description: `- Khối lượng khoảng 650g-700g/ trái. 
+      - Lớp vỏ mỏng, thịt màu trắng.
+      - Đậm vị, rất ngon`,
     }
- ],
+ ]
 
-  reviews : [
-    {
-      name: "Hiền",
-      comment: "Trái cây cực ngon",
-      rating: 2,
-    },
-    {
-      name: "Huong",
-      comment: "Trái cây tươi ngon",
-      rating: 5,
-    },
-    {
-      name: "Thinh",
-      comment: "Giao hàng khá chậm",
-      rating: 1,
-    },
-    {
-      name: "Bao",
-      comment: "Bạn nhân viên khá nhiệt tình.",
-      rating: 5,
-    },
-    {
-      name: "Toan",
-      comment: "Goodddddd",
-      rating: 5,
-    },
-    {
-      name: "Hoàng",
-      comment: "Chất lượng khá ổn. Chưa hài lòng cách đóng gói.",
-      rating: 4,
-    },
-    {
-      name: "Tuấn",
-      comment: "Vỏ cam hơi bẩn.",
-      rating: 3,
-    },
-    {
-      name: "Trung",
-      comment: "Trái cây khá đắt",
-      rating: 2,
-    },
-    {
-      name: "Toàn",
-      comment: "Nho hơi chua nhưng vẫn đánh giá 5*",
-      rating: 5,
-    },
-    {
-      name: "Long",
-      comment: "Giao hàng khá chậm",
-      rating: 3,
-    },
-    {
-      name: "Nhân",
-      comment: "Nhân viên tư vấn nhiệt tình.",
-      rating: 5,
-    },
-    {
-      name: "Chất",
-      comment: "Chất lượng khá ổn",
-      rating: 4,
-    },
-    {
-      name: "Triển",
-      comment: "Perfect",
-      rating: 5,
-    },
-    {
-      name: "Hiền",
-      comment: "Excellent",
-      rating: 5,
-    },
-    {
-      name: "Tuấn",
-      comment: "Goodddddd",
-      rating: 5,
-    },
-    {
-      name: "Boy cô đơn",
-      comment: "Trái cây hợp khẩu vị.",
-      rating: 5,
-    },
-    {
-      name: "Girl biến thái",
-      comment: "Trái cây khá ngọt.",
-      rating: 5,
-    },
-    {
-      name: "Huong",
-      comment: "Goodddddd",
-      rating: 5,
-    }
-  ]
 };
 export default data;
