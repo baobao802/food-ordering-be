@@ -59,8 +59,14 @@ router.get('/summary', isAuth, isAdmin, async (req, res) => {
 
 // order history of user
 router.get('/mine', isAuth, async (req, res) => {
-    const orders = await OrderModel.find({ user: req.user._id });
-    res.send(orders);
+    const pageSize = 3;
+    const page = Number(req.query.pageNumber) || 1;
+    const count = await OrderModel.count();
+    const orders = await OrderModel.find({ user: req.user._id })
+                                .sort({ _id: -1 })
+                                .skip(pageSize * (page - 1))
+                                .limit(pageSize);;
+    res.send({ orders, page, pages: Math.ceil(count / pageSize) });
 });
 
 router.post('/', isAuth, async (req, res) => {
