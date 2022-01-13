@@ -103,7 +103,7 @@ router.get('/:id', isAuth, async (req, res) => {
     }
 });
 
-router.put('/:id/pay', isAuth, async (req, res) => {
+router.put('/:id/pay', isAuth, isSellerOrAdmin, async (req, res) => {
     const order = await OrderModel.findById(req.params.id);
     if (order) {
         if(order.isDelivered === true) {
@@ -119,7 +119,7 @@ router.put('/:id/pay', isAuth, async (req, res) => {
     }
 });
 
-router.put('/:id/cancel', isAuth, isSellerOrAdmin, async (req, res) => {
+router.put('/:id/cancel', isAuth, async (req, res) => {
     const order = await OrderModel.findById(req.params.id);
     if (order) {
         if (!order.isPaid) {
