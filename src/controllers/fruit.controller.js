@@ -43,7 +43,11 @@ FruitController.getFruits = async (req, res) => {
   }).sort(sortOrder)
     .skip(pageSize * (page - 1))
     .limit(pageSize);
-  res.send({ fruits, page, pages: Math.ceil(count / pageSize) });
+  if (page === 1) {
+    res.send(await FruitModel.find({}));
+  } else {
+    res.send({ fruits, page, pages: Math.ceil(count / pageSize) });
+  }
 };
 
 FruitController.getAllCategory = async (req, res) => {
