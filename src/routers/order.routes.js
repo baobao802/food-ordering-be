@@ -8,6 +8,18 @@ import {
     isSellerOrAdmin,
 } from '../middleware/auth.middleware.js';
 
+import { payOrderEmailTemplate } from '../utils/utils.js';
+
+import nodemailer from 'nodemailer';
+
+let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'bkhunterpro@gmail.com',
+        pass: 'bkhunterpro!@#123'
+    }
+});
+
 const router = express.Router();
 
 router.get('/', isAuth, isSellerOrAdmin, async (req, res) => {
@@ -73,6 +85,7 @@ router.post('/', isAuth, async (req, res) => {
     if (req.body.orderItems.length === 0) {
         res.status(400).send({ message: 'Cart is empty' });
     } else {
+        console.log(req.body);
         const order = new OrderModel({
             orderItems: req.body.orderItems,
             shippingAddress: req.body.shippingAddress,
@@ -103,16 +116,41 @@ router.get('/:id', isAuth, async (req, res) => {
     }
 });
 
-router.put('/:id/pay', isAuth, isSellerOrAdmin, async (req, res) => {
-    const order = await OrderModel.findById(req.params.id);
+router.put('/:id/pay', isAuth, async (req, res) => {
+    const order = await OrderModel.findById(req.params.id).populate('user', 'email name');
     if (order) {
-        if(order.isDelivered === true) {
+        if (!order.isCanceled) {
             order.isPaid = true;
             order.paidAt = Date.now();
+            order.paymentResult = {
+                id: req.body.id,
+                status: req.body.status,
+                update_time: req.body.update_time,
+                email_address: req.body.email_address,
+              };
+            order.user = req.user;
             const updatedOrder = await order.save();
+            try {
+                let mailDetails = {
+                    from: 'bkhunterpro@gmail.com',
+                    to: `${order.user.email}`,
+                    subject: `New order ${order._id}`,
+                    html: payOrderEmailTemplate(order),
+                };
+                mailTransporter.sendMail(mailDetails, function(err, data) {
+                    if(err) {
+                        console.log('Error Occurs');
+                    } else {
+                        console.log('Email sent successfully\n' + data);
+                    }
+                });
+            } catch (err) {
+                console.log(err);
+            }
+
             res.send({ message: 'Order Paid', order: updatedOrder });
         } else {
-            res.send({message: 'You must deliver fruit'});
+            res.send({ message: 'Order canceled' });
         }
     } else {
         res.status(404).send({ message: 'Order Not Found' });
@@ -138,11 +176,15 @@ router.put('/:id/cancel', isAuth, async (req, res) => {
 router.put('/:id/deliver', isAuth, isSellerOrAdmin, async (req, res) => {
     const order = await OrderModel.findById(req.params.id);
     if (order) {
-        order.isDelivered = true;
-        order.deliveredAt = Date.now();
+        if (!order.isCanceled) {
+            order.isDelivered = true;
+            order.deliveredAt = Date.now();
 
-        const updatedOrder = await order.save();
-        res.send({ message: 'Order Delivered', order: updatedOrder });
+            const updatedOrder = await order.save();
+            res.send({ message: 'Order Delivered', order: updatedOrder });
+        } else {
+            res.send({ message: 'Can not deliver cause order canceled'});
+        }
     } else {
         res.status(404).send({ message: 'Order Not Found' });
     }
