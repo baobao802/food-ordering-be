@@ -15,10 +15,10 @@ const connectDatabase = async () => {
         
         console.log("Connected to the database")
 
-        // await FruitModel.deleteMany();
-        // await FruitModel.insertMany(data.fruits);
-        // await UserModel.deleteMany();
-        // await UserModel.insertMany(data.users);
+        await FruitModel.deleteMany();
+        await FruitModel.insertMany(data.fruits);
+        await UserModel.deleteMany();
+        await UserModel.insertMany(data.users);
     } catch (error) {
         console.log(`Could not connect to the database with error : ${error}`);
         process.exit(1);

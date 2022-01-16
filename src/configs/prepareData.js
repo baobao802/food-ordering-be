@@ -52,6 +52,13 @@ const data = {
       isSeller: true,
       isAdmin: false,
     },
+    {
+      name: 'Lien Huong',
+      email: 'huonglien212@gmail.com',
+      password: bcrypt.hashSync('1234', 8),
+      isSeller: false,
+      isAdmin: false,
+    }
   ],
   fruits: [
     {
@@ -237,7 +244,7 @@ const data = {
       category: 'Cam',
       image:
         'https://vnn-imgs-f.vgcloud.vn/2021/07/21/10/cam-sanh-1.jpg',
-      price: 40000,
+      price: 20,
       countInStock: 100,
       brand: 'Việt Nam',
       description: `- Cam sành là loại trái cây vốn được nhiều người yêu thích, đặc biệt là trẻ nhỏ và chị em phụ nữ, bởi cam rất bổ dưỡng và cao cấp. 
