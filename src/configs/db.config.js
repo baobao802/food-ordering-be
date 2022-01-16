@@ -8,7 +8,7 @@ const connectDatabase = async () => {
     try {
         // mongodb+srv://bkhunter:bkhunter@fruitdb.7brm3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
         // mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}
-        await mongoose.connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`, { 
+        await mongoose.connect(process.env.MONGO_URL_LOCAL, { 
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });  
