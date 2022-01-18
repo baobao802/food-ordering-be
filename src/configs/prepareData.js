@@ -37,7 +37,7 @@ const data = {
       isAdmin: false,
     },
     {
-      name: 'Công',
+      name: 'Trương Công Quốc Thịnh',
       email: 'cong@gmail.com',
       password: bcrypt.hashSync('1234', 8),
       address: 'Da Nang',
