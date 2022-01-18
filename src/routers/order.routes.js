@@ -89,6 +89,7 @@ router.post('/', isAuth, async (req, res) => {
         const order = new OrderModel({
             orderItems: req.body.orderItems,
             shippingAddress: req.body.shippingAddress,
+            phone: req.body.phone,
             paymentMethod: req.body.paymentMethod,
             itemsPrice: req.body.itemsPrice,
             shippingPrice: req.body.shippingPrice,
@@ -134,7 +135,7 @@ router.put('/:id/pay', isAuth, async (req, res) => {
                 let mailDetails = {
                     from: 'bkhunterpro@gmail.com',
                     to: `${order.user.email}`,
-                    subject: `New order ${order._id}`,
+                    subject: `Đơn đặt hàng ${order._id}`,
                     html: payOrderEmailTemplate(order),
                 };
                 mailTransporter.sendMail(mailDetails, function(err, data) {
