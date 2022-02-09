@@ -13,7 +13,7 @@ const connectDatabase = async () => {
             useUnifiedTopology: true,
         });  
         
-        console.log("Connected to the database")
+        console.log("Connected to the databasee")
 
         await FruitModel.deleteMany();
         await FruitModel.insertMany(data.fruits);
