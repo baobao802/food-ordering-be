@@ -6,7 +6,9 @@ import data from './prepareData.js';
 
 const connectDatabase = async () => {
     try {
-        await mongoose.connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`, { 
+        // mongodb+srv://bkhunter:bkhunter@fruitdb.7brm3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+        // mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}
+        await mongoose.connect("mongodb+srv://bkhunter:bkhunter@fruitdb.7brm3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { 
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });  

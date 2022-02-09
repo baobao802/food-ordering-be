@@ -2,18 +2,8 @@ import FruitsService from '../services/fruit.service.js';
 import FruitModel from '../models/fruits.model.js';
 const FruitController = {};
 
-// FruitController.getFruits = async (req, res) => {
-//     try {
-//         const fruits = await FruitsService.getAllFruits();
-//         res.status(200).json({
-//             fruits
-//         });
-//     } catch (error) {
-//         res.status(400);
-//     }
-// };
 FruitController.getFruits = async (req, res) => {
-  const pageSize = 10;
+  const pageSize = 3;
   const page = Number(req.query.pageNumber) || 1;
   const name = req.query.name || '';
   const category = req.query.category || '';
@@ -32,9 +22,9 @@ FruitController.getFruits = async (req, res) => {
   const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
   const ratingFilter = rating ? { rating: { $gte: rating } } : {};
   const sortOrder =
-    order === 'lowest'
-      ? { price: 1 }
-      : order === 'highest'
+  order === 'lowest'
+  ? { price: 1 }
+  : order === 'highest'
       ? { price: -1 }
       : order === 'toprated'
       ? { rating: -1 }
@@ -45,16 +35,25 @@ FruitController.getFruits = async (req, res) => {
     ...priceFilter,
     ...ratingFilter,
   });
-  const fruits = await FruitModel.find({
-    ...nameFilter,
-    ...categoryFilter,
-    ...priceFilter,
-    ...ratingFilter,
-  })
-    .sort(sortOrder)
-    .skip(pageSize * (page - 1))
-    .limit(pageSize);
-  res.send({ fruits, page, pages: Math.ceil(count / pageSize) });
+  if (page === 1) {
+    const fruits = await FruitModel.find({
+      ...nameFilter,
+      ...categoryFilter,
+      ...priceFilter,
+      ...ratingFilter,
+    }).sort(sortOrder);;
+    res.send({ fruits, page, pages: Math.ceil(count / pageSize) });
+  } else {
+      const fruits = await FruitModel.find({
+        ...nameFilter,
+        ...categoryFilter,
+        ...priceFilter,
+        ...ratingFilter,
+      }).sort(sortOrder)
+        .skip(pageSize * (page - 1))
+        .limit(pageSize);
+      res.send({ fruits, page, pages: Math.ceil(count / pageSize) });
+  }
 };
 
 FruitController.getAllCategory = async (req, res) => {
@@ -72,21 +71,24 @@ FruitController.getFruitById = async (req, res) => {
 };
 
 FruitController.insertFruit = async (req, res) => {
-  const fruit = {
-    name: req.body.name,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/512px-Red_Apple.jpg',
-    price: req.body.price,
-    category: req.body.category,
-    brand: req.body.brand,
-    countInStock: req.body.countInStock,
-    rating: 0,
-    numReviews: 0,
-    description: req.body.description,
-    review: '',
-  };
-  const createdFruit = await FruitsService.create(fruit);
-  res.send({ message: 'Fruit Created', fruit: createdFruit });
+  const found = await FruitModel.findOne({name: req.body.name});
+  if (!found) {
+    const fruit = {
+      name: req.body.name,
+      image: req.body.image,
+      price: req.body.price,
+      category: req.body.category,
+      brand: req.body.brand,
+      countInStock: req.body.countInStock,
+      description: req.body.description,
+      rating: 0,
+      numReviews: 0,
+    };
+    const createdFruit = await FruitsService.create(fruit);
+    res.send({ message: 'Fruit Created', fruit: createdFruit });
+  } else {
+    res.send({ message: 'Fruit Existed' });
+  }
 };
 
 FruitController.updateFruit = async (req, res) => {
