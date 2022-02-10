@@ -102,7 +102,7 @@ UserController.updateUser = async (req, res) => {
     if(req.body.isSeller === 'true') {
       user.isSeller = true;
     } else {
-      user.isSeller = false;
+      user.isSeller = true;
     }
     if(req.body.isAdmin === 'true') {
       user.isAdmin = true;
