@@ -99,18 +99,8 @@ UserController.updateUser = async (req, res) => {
     user.address = req.body.address;
     user.phone = req.body.phone;
     user.image = req.body.image;
-    if(req.body.isSeller === 'true') {
-      user.isSeller = true;
-    } else {
-      user.isSeller = true;
-    }
-    if(req.body.isAdmin === 'true') {
-      user.isAdmin = true;
-    } else {
-      user.isAdmin = false;
-    }
-    // user.isSeller = req.body.isSeller === 'true';
-    // user.isAdmin = req.body.isAdmin === 'true';
+    user.isSeller = req.body.isSeller === true;
+    user.isAdmin = req.body.isAdmin === true;
     const updatedUser = await user.save();
     res.send({ message: 'User Updated', user: updatedUser });
   } else {
