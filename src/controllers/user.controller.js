@@ -62,7 +62,7 @@ UserController.getUserById = async (req, res) => {
 };
 
 UserController.getAllUser = async (req, res) => {
-  const pageSize = 1;
+  const pageSize = 3;
   const page = Number(req.query.pageNumber) || 1;
   const count = await UserModel.count();
   const users = await UserModel.find({}).sort({ _id: -1 }).skip(pageSize * (page - 1)).limit(pageSize);
@@ -99,7 +99,7 @@ UserController.updateUser = async (req, res) => {
     user.address = req.body.address;
     user.phone = req.body.phone;
     user.image = req.body.image;
-    user.isSeller = true;
+    user.isSeller = req.body.isSeller === true;
     user.isAdmin = req.body.isAdmin === true;
     const updatedUser = await user.save();
     res.send({ message: 'User Updated', user: updatedUser });
