@@ -87,7 +87,7 @@ UserController.updateUser = async (req, res) => {
   const user = await UserModel.findById(req.params.id);
   if (user) {
     console.log("user nè" + user);
-    console.log("body nè" + req.body);
+    console.log(req.body);
     if (user.email === 'admin@gmail.com') {
       if (req.body.isSeller === 'true' || req.body.isAdmin === 'false') {
         res.status(400).send({ message: 'Can Not Update Admin User' });
@@ -99,8 +99,18 @@ UserController.updateUser = async (req, res) => {
     user.address = req.body.address;
     user.phone = req.body.phone;
     user.image = req.body.image;
-    user.isSeller = req.body.isSeller === 'true';
-    user.isAdmin = req.body.isAdmin === 'true';
+    if(req.body.isSeller === 'true') {
+      user.isSeller = true;
+    } else {
+      user.isSeller = false;
+    }
+    if(req.body.isAdmin === 'true') {
+      user.isAdmin = true;
+    } else {
+      user.isAdmin = false;
+    }
+    // user.isSeller = req.body.isSeller === 'true';
+    // user.isAdmin = req.body.isAdmin === 'true';
     const updatedUser = await user.save();
     res.send({ message: 'User Updated', user: updatedUser });
   } else {
