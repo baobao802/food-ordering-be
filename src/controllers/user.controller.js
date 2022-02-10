@@ -99,7 +99,7 @@ UserController.updateUser = async (req, res) => {
     user.address = req.body.address;
     user.phone = req.body.phone;
     user.image = req.body.image;
-    user.isSeller = req.body.isSeller === true;
+    user.isSeller = true;
     user.isAdmin = req.body.isAdmin === true;
     const updatedUser = await user.save();
     res.send({ message: 'User Updated', user: updatedUser });
